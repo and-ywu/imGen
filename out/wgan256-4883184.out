@@ -1,0 +1,40 @@
+Tue Aug  6 13:53:43 2019       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 410.104      Driver Version: 410.104      CUDA Version: 10.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  Off  | 00000000:02:00.0 Off |                  N/A |
+| 64%   86C    P2   186W / 250W |   4209MiB / 11178MiB |    100%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  Off  | 00000000:03:00.0 Off |                  N/A |
+| 38%   65C    P2   241W / 250W |   8337MiB / 11178MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  Off  | 00000000:82:00.0 Off |                  N/A |
+| 37%   64C    P2   272W / 250W |   8319MiB / 11178MiB |     17%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  Off  | 00000000:83:00.0 Off |                  N/A |
+| 23%   22C    P8    10W / 250W |      0MiB / 11178MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0     27996      C   ...software/ont-guppy/bin/guppy_basecaller  4199MiB |
+|    1     28223      C   python                                      8327MiB |
+|    2     28223      C   python                                      8309MiB |
++-----------------------------------------------------------------------------+
+2019-08-06 13:54:37.128781: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-08-06 13:54:37.436702: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:83:00.0
+totalMemory: 10.92GiB freeMemory: 10.76GiB
+2019-08-06 13:54:37.436743: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-08-06 13:54:44.146247: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-08-06 13:54:44.146719: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-08-06 13:54:44.146733: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-08-06 13:54:44.147775: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10409 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:83:00.0, compute capability: 6.1)
+/var/spool/slurmd/job4883184/slurm_script: line 16: 10643 Killed                  python3 wgan256.py
+slurmstepd: error: Detected 1 oom-kill event(s) in step 4883184.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.

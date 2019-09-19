@@ -1,0 +1,39 @@
+Tue Aug  6 15:29:16 2019       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 410.104      Driver Version: 410.104      CUDA Version: 10.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  Tesla K80           Off  | 00000000:04:00.0 Off |                    0 |
+| N/A   48C    P0    61W / 149W |      0MiB / 11441MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  Tesla K80           Off  | 00000000:05:00.0 Off |                    0 |
+| N/A   45C    P0    73W / 149W |   5013MiB / 11441MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  Tesla K80           Off  | 00000000:84:00.0 Off |                    0 |
+| N/A   57C    P0   149W / 149W |   7038MiB / 11441MiB |     91%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  Tesla K80           Off  | 00000000:85:00.0 Off |                    0 |
+| N/A   55C    P0    86W / 149W |      0MiB / 11441MiB |     78%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    1     28776      C   python                                      5002MiB |
+|    2     28248      C   python                                      7027MiB |
++-----------------------------------------------------------------------------+
+2019-08-06 15:30:19.746957: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-08-06 15:30:24.816828: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: Tesla K80 major: 3 minor: 7 memoryClockRate(GHz): 0.8235
+pciBusID: 0000:04:00.0
+totalMemory: 11.17GiB freeMemory: 11.10GiB
+2019-08-06 15:30:24.816889: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-08-06 15:30:30.927273: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-08-06 15:30:30.929318: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-08-06 15:30:30.929356: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-08-06 15:30:30.929727: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10759 MB memory) -> physical GPU (device: 0, name: Tesla K80, pci bus id: 0000:04:00.0, compute capability: 3.7)
+/var/spool/slurmd/job4883559/slurm_script: line 16: 30216 Killed                  python3 wgan256.py
+slurmstepd: error: Detected 1 oom-kill event(s) in step 4883559.batch cgroup. Some of your processes may have been killed by the cgroup out-of-memory handler.

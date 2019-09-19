@@ -23,6 +23,7 @@ data = np.array(f['images'])
 now = datetime.now()
 timestamp = now.strftime("%Y%m%d%H%M%S")
 os.makedirs("images/wgan_{}".format(timestamp))
+os.makedirs("models/wgan_{}".format(timestamp))
 
 class RandomWeightedAverage(_Merge):
     """Provides a (random) weighted average between real and generated image samples"""
@@ -30,7 +31,7 @@ class RandomWeightedAverage(_Merge):
         alpha = K.random_uniform((32, 1, 1, 1))
         return (alpha * inputs[0]) + ((1 - alpha) * inputs[1])
 
-class WGANGP():
+class WGAN():
     def __init__(self):
         self.img_rows = 64
         self.img_cols = 64
@@ -94,7 +95,7 @@ class WGANGP():
         self.generator.trainable = True
 
         # Sampled noise for input to generator
-        z_gen = Input(shape=(100,))
+        z_gen = Input(shape=(self.latent_dim,))
         # Generate images based of noise
         img = self.generator(z_gen)
         # Discriminator determines validity
@@ -128,10 +129,13 @@ class WGANGP():
 
     def build_generator(self):
         model = Sequential()
-
+        model.name = "generator"
         model.add(Dense(128 * 8 * 8, activation="relu", input_dim=self.latent_dim))
         model.add(Reshape((8, 8, 128)))
         model.add(UpSampling2D())
+        model.add(Conv2D(128, kernel_size=4, padding="same"))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(Activation("relu"))
         model.add(Conv2D(128, kernel_size=4, padding="same"))
         model.add(BatchNormalization(momentum=0.8))
         model.add(Activation("relu"))
@@ -153,13 +157,8 @@ class WGANGP():
 
     def build_critic(self):
         model = Sequential()
-
-        model.add(Conv2D(16, kernel_size=3, strides=2, input_shape=self.img_shape, padding="same"))
-        model.add(LeakyReLU(alpha=0.2))
-        model.add(Dropout(0.25))
-        model.add(Conv2D(32, kernel_size=3, strides=2, padding="same"))
-        model.add(ZeroPadding2D(padding=((0,1),(0,1))))
-        model.add(BatchNormalization(momentum=0.8))
+        model.name = "discriminator"
+        model.add(Conv2D(32, kernel_size=3, strides=2, input_shape=self.img_shape, padding="same"))
         model.add(LeakyReLU(alpha=0.2))
         model.add(Dropout(0.25))
         model.add(Conv2D(64, kernel_size=3, strides=2, padding="same"))
@@ -167,11 +166,16 @@ class WGANGP():
         model.add(BatchNormalization(momentum=0.8))
         model.add(LeakyReLU(alpha=0.2))
         model.add(Dropout(0.25))
-        model.add(Conv2D(128, kernel_size=3, strides=1, padding="same"))
+        model.add(Conv2D(128, kernel_size=3, strides=2, padding="same"))
+        model.add(ZeroPadding2D(padding=((0,1),(0,1))))
         model.add(BatchNormalization(momentum=0.8))
         model.add(LeakyReLU(alpha=0.2))
         model.add(Dropout(0.25))
         model.add(Conv2D(256, kernel_size=3, strides=1, padding="same"))
+        model.add(BatchNormalization(momentum=0.8))
+        model.add(LeakyReLU(alpha=0.2))
+        model.add(Dropout(0.25))
+        model.add(Conv2D(512, kernel_size=3, strides=1, padding="same"))
         model.add(BatchNormalization(momentum=0.8))
         model.add(LeakyReLU(alpha=0.2))
         model.add(Dropout(0.25))
@@ -223,7 +227,7 @@ class WGANGP():
 
     def log(self, epoch, d_loss, g_loss):
         print ("%d [D: %f] [G: %f]"
-               % (epoch, d_loss[0], g_loss[0]))
+               % (epoch, d_loss[0], g_loss))
         self.sample_images(epoch)
 
     def sample_images(self, epoch):
@@ -231,7 +235,7 @@ class WGANGP():
         noise = np.random.normal(0, 1, (r * c, self.latent_dim))
         gen_imgs = self.generator.predict(noise)
         fig, axs = plt.subplots(r,c)
-        plt.subplots_adjust(left=0.1, right=0.1, bottom=0.1, top=0.1, wspace=0.1, hspace=0.1)
+        plt.subplots_adjust(left=0.05, right=0.95, bottom=0.05, top=0.95, wspace=0.05, hspace=0.05)
         cnt = 0
         for i in range(r):
             for j in range(c):
@@ -242,4 +246,13 @@ class WGANGP():
         plt.close()
 
 wgan = WGAN()
-wgan.train(epochs=30000, batch_size=32, sample_interval=100)
+wgan.train(epochs=20000, batch_size=32, sample_interval=200)
+wgan.generator.save_weights('models/wgan_{}/wgangen.h5'.format(timestamp))
+wgan.critic.save_weights('models/wgan_{}/wgancritic.h5'.format(timestamp))
+for i in range(5):
+    imgs = wgan.generator.predict(np.random.normal(0, 1, (5, wgan.latent_dim)))
+    fig = plt.figure(figsize=(10,10))
+    plt.imshow(np.squeeze(imgs[i]), cmap='gray')
+    plt.axis('off')
+    fig.savefig("images/wgan_{}/f{}.png".format(timestamp, i))
+    plt.close()

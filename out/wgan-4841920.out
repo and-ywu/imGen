@@ -1,0 +1,39 @@
+Wed Jul 24 15:30:27 2019       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 384.145                Driver Version: 384.145                   |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  Off  | 00000000:02:00.0 Off |                  N/A |
+| 50%   84C    P2   154W / 250W |   1297MiB / 11172MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  Off  | 00000000:03:00.0 Off |                  N/A |
+| 51%   84C    P2   212W / 250W |  10777MiB / 11172MiB |     98%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  Off  | 00000000:82:00.0 Off |                  N/A |
+| 48%   81C    P2   217W / 250W |   1297MiB / 11172MiB |     99%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  Off  | 00000000:83:00.0 Off |                  N/A |
+| 23%   38C    P0    60W / 250W |      0MiB / 11172MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID   Type   Process name                             Usage      |
+|=============================================================================|
+|    0     14769      C   ...vargiu/local/SL7/amber18/bin/pmemd.cuda  1287MiB |
+|    1      1034      C   python3                                    10767MiB |
+|    2     15177      C   ...vargiu/local/SL7/amber18/bin/pmemd.cuda  1287MiB |
++-----------------------------------------------------------------------------+
+2019-07-24 15:30:52.226435: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-07-24 15:30:54.344813: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1432] Found device 0 with properties: 
+name: GeForce GTX 1080 Ti major: 6 minor: 1 memoryClockRate(GHz): 1.582
+pciBusID: 0000:83:00.0
+totalMemory: 10.91GiB freeMemory: 10.75GiB
+2019-07-24 15:30:54.344865: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1511] Adding visible gpu devices: 0
+2019-07-24 15:30:54.769487: I tensorflow/core/common_runtime/gpu/gpu_device.cc:982] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-07-24 15:30:54.769533: I tensorflow/core/common_runtime/gpu/gpu_device.cc:988]      0 
+2019-07-24 15:30:54.769543: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1001] 0:   N 
+2019-07-24 15:30:54.777803: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 10400 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1080 Ti, pci bus id: 0000:83:00.0, compute capability: 6.1)
+slurmstepd: error: *** JOB 4841920 ON n0301.savio2 CANCELLED AT 2019-07-25T06:30:48 DUE TO TIME LIMIT ***
